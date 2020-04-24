@@ -53,7 +53,7 @@ var BluetoothIndicator = new Lang.Class({
         this._bluetooth_disabled_gicon = Gio.icon_new_for_string(`${Me.path}/icons/bluetooth-disabled-symbolic.svg`);
         this._bluetooth_paired_gicon = Gio.icon_new_for_string(`${Me.path}/icons/bluetooth-paired-symbolic.svg`);
 
-        this._bluetooth.indicators.remove_actor(this._bluetooth._indicator);
+        this._bluetooth.remove_actor(this._bluetooth._indicator);
         this._bluetooth._indicator.hide();
         this._bluetooth._item.menu._setSettingsVisibility(false);
 
@@ -120,7 +120,7 @@ var BluetoothIndicator = new Lang.Class({
 
         this.box.remove_child(this._bluetooth._indicator);
         this.menu.box.remove_actor(this._bluetooth.menu.actor);
-        this._bluetooth.indicators.add_actor(this._bluetooth._indicator);
+        this._bluetooth.add_actor(this._bluetooth._indicator);
         this._bluetooth._item.menu._setSettingsVisibility(true);
 
         Main.panel.statusArea.aggregateMenu.menu.box.add_actor(this._bluetooth.menu.actor);

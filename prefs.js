@@ -209,43 +209,6 @@ var SettingsPage = new Lang.Class({
         userFrame.add(nameIconRow);
 
         /*
-         * Calendar Settings
-         */
-        let calendarFrame = new FrameBox(_("Calendar Indicator"));
-        let dateFormatRow = new FrameBoxRow();
-
-        let dateFormatLabel = new Gtk.Label({
-            label: _("Change date format"),
-            xalign: 0,
-            hexpand: true
-        });
-        let dateFormatWikiButton = new Gtk.LinkButton({
-            label: _("wiki"),
-            uri: "https://help.gnome.org/users/gthumb/unstable/gthumb-date-formats.html",
-            //xalign: 0,
-            //hexpand: true,
-            //image: new Gtk.Image({
-            //icon_name: "emblem-web",
-            //xalign: 0.46
-            //})
-        });
-
-        let context = dateFormatWikiButton.get_style_context();
-        context.add_class("circular");
-
-        let dateFormatEntry = new Gtk.Entry({
-            hexpand: true,
-            halign: Gtk.Align.END
-        });
-        this.settings.bind("date-format", dateFormatEntry, "text", Gio.SettingsBindFlags.DEFAULT);
-
-        dateFormatRow.add(dateFormatLabel);
-        dateFormatRow.add(dateFormatWikiButton);
-        dateFormatRow.add(dateFormatEntry);
-
-        calendarFrame.add(dateFormatRow);
-
-        /*
          * Power Settings
          */
         let powerFrame = new FrameBox(_("Power Indicator"));

@@ -52,13 +52,14 @@ var UserIndicator = new Lang.Class({
         this._powerIcon = new St.Icon({ gicon: this._power_gicon });
         this._powerIcon.icon_size = PANEL_ICON_SIZE;
 
-        this.box.add_child(this._screencast.indicators);
+        this.box.add_child(this._screencast);
         this.box.add_child(this._powerIcon);
         this.box.add_child(this._nameLabel);
 
         this._createSubMenu();
 
         Main.panel.statusArea.aggregateMenu.menu.box.remove_actor(this._system.menu.actor);
+        //IS THIS NEEDED?
         // this.menu.addMenuItem(this._system.menu);
     },
     _createSubMenu: function () {
@@ -125,9 +126,10 @@ var UserIndicator = new Lang.Class({
 
         lock.connect("activate", () => this._system._systemActions.activateLockScreen());
         this.menu.addMenuItem(lock);
-        if (!this._system._lockScreenAction.visible) {
-            lock.actor.hide();
-        }
+        //IS THIS NEEDED?
+        // if (!this._system._lockScreenAction.visible) {
+        //     lock.actor.hide();
+        // }
 
         //////////////
         let switchuser = new PopupMenu.PopupBaseMenuItem();
@@ -169,9 +171,10 @@ var UserIndicator = new Lang.Class({
 
         orientation.connect("activate", () => this._system._systemActions.activateLockOrientation());
         this.menu.addMenuItem(orientation);
-        if (!this._system._orientationLockAction.visible) {
-            orientation.actor.hide();
-        }
+        //IS THIS NEEDED?
+        // if (!this._system._orientationLockAction.visible) {
+        //     orientation.actor.hide();
+        // }
 
         ///////////////
         let suspend = new PopupMenu.PopupBaseMenuItem();
@@ -191,9 +194,10 @@ var UserIndicator = new Lang.Class({
 
         suspend.connect("activate", () => this._system._systemActions.activateSuspend());
         this.menu.addMenuItem(suspend);
-        if (!this._system._suspendAction.visible) {
-            suspend.actor.hide();
-        }
+        //IS THIS NEEDED?
+        // if (!this._system._suspendAction.visible) {
+        //     suspend.actor.hide();
+        // }
 
         let power = new PopupMenu.PopupBaseMenuItem();
 
@@ -210,9 +214,10 @@ var UserIndicator = new Lang.Class({
 
         power.connect("activate", () => this._system._systemActions.activatePowerOff());
         this.menu.addMenuItem(power);
-        if (!this._system._powerOffAction.visible) {
-            power.actor.hide();
-        }
+        //IS THIS NEEDED?
+        // if (!this._system._powerOffAction.visible) {
+        //     power.actor.hide();
+        // }
     },
     changeLabel: function (label) {
         if (label == "") {

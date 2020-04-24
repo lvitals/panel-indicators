@@ -25,11 +25,9 @@ const Convenience = Me.imports.convenience;
 
 const MenuItems = Me.imports.menuItems.MenuItems;
 const CustomButton = Me.imports.indicators.button.CustomButton;
-const CalendarIndicator = Me.imports.indicators.calendar.CalendarIndicator;
 const NetworkIndicator = Me.imports.indicators.network.NetworkIndicator;
 const BluetoothIndicator = Me.imports.indicators.bluetooth.BluetoothIndicator;
 const NightLightIndicator = Me.imports.indicators.nightlight.NightLightIndicator;
-const NotificationIndicator = Me.imports.indicators.notification.NotificationIndicator;
 const PowerIndicator = Me.imports.indicators.power.PowerIndicator;
 const UserIndicator = Me.imports.indicators.system.UserIndicator;
 const VolumeIndicator = Me.imports.indicators.volume.VolumeIndicator;
@@ -48,30 +46,22 @@ let volume;
 let network;
 let bluetooth;
 let power;
-let calendar;
 let user;
-let notification;
 
 const CENTER_BOX = Main.panel._centerBox;
 const RIGHT_BOX = Main.panel._rightBox;
 
 function enable() {
     Main.panel.statusArea.aggregateMenu.container.hide();
-    Main.panel.statusArea.dateMenu.container.hide();
-    Main.panel._centerBox.remove_child(Main.panel.statusArea.dateMenu.container);
 
     network = new NetworkIndicator();
     bluetooth = new BluetoothIndicator();
     volume = new VolumeIndicator();
     power = new PowerIndicator();
-    calendar = new CalendarIndicator();
-    notification = new NotificationIndicator();
     user = new UserIndicator();
     nightlight = new NightLightIndicator();
 
-    Main.panel.addToStatusArea(notification.name, notification, 0, "right");
     Main.panel.addToStatusArea(user.name, user, 0, "right");
-    Main.panel.addToStatusArea(calendar.name, calendar, 0, "right");
     Main.panel.addToStatusArea(power.name, power, 0, "right");
     Main.panel.addToStatusArea(network.name, network, 0, "right");
     Main.panel.addToStatusArea(bluetooth.name, bluetooth, 0, "right");
@@ -86,12 +76,10 @@ function enable() {
     settingsChanged[i++] = settings.connect("changed::items", applySettings);
     settingsChanged[i++] = settings.connect("changed::spacing", applySettings);
     settingsChanged[i++] = settings.connect("changed::user-icon", changeUsericon);
-    settingsChanged[i++] = settings.connect("changed::date-format", changeDateformat);
 
     applySettings();
     changeUsername();
     changeUsericon();
-    changeDateformat();
 }
 
 function changeUsername() {
@@ -102,11 +90,6 @@ function changeUsername() {
 function changeUsericon() {
     let enableUserIcon = settings.get_boolean("user-icon");
     user.changeIcon(enableUserIcon);
-}
-
-function changeDateformat() {
-    let dateformat = settings.get_string("date-format");
-    calendar.override(dateformat);
 }
 
 function applySettings() {
@@ -120,8 +103,6 @@ function applySettings() {
     setup(enabled, center, indicators, "volume", volume);
     setup(enabled, center, indicators, "network", network);
     setup(enabled, center, indicators, "bluetooth", bluetooth);
-    setup(enabled, center, indicators, "notification", notification);
-    setup(enabled, center, indicators, "calendar", calendar);
     setup(enabled, center, indicators, "nightlight", nightlight);
 
     let rightchildren = RIGHT_BOX.get_children().length;
@@ -155,9 +136,7 @@ function removeAll() {
     removeContainer(network);
     removeContainer(bluetooth);
     removeContainer(power);
-    removeContainer(calendar);
     removeContainer(user);
-    removeContainer(notification);
 }
 
 function removeContainer(item) {
@@ -182,10 +161,6 @@ function disable() {
     network.destroy();
     bluetooth.destroy();
     user.destroy();
-    notification.destroy();
-    calendar.destroy();
 
     Main.panel.statusArea.aggregateMenu.container.show();
-    Main.panel.statusArea.dateMenu.container.show();
-    Main.panel._centerBox.add_child(Main.panel.statusArea.dateMenu.container);
 }
