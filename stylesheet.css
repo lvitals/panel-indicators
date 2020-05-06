@@ -21,11 +21,11 @@
     padding-left: 20px;
 }
 
-.datemenu-calendar-column {
+/* .datemenu-calendar-column {
    border-left-width: 0;
    border-right-width: 1px;
    height: 23.0em;
-}
+} */
 
 .remove-menubutton {
     border-radius: 10px;
@@ -42,10 +42,10 @@
 }
 
 /* Message list */
-.message-list {
+/* .message-list {
     width: 22.5em;
     max-height: 350px;
-}
+} */
 
 .panel-status-menu-box>StIcon { 
     icons-size: 16px; padding: 4px;

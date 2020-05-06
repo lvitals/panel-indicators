@@ -41,7 +41,7 @@ var VolumeIndicator = new Lang.Class({
         this.menu.box.add_actor(this._volume.menu.actor);
 
         this._mediaSection = Main.panel.statusArea.dateMenu._messageList._mediaSection;
-        Main.panel.statusArea.dateMenu._messageList._removeSection(this._mediaSection);
+        Main.panel.statusArea.dateMenu._messageList._sectionList.remove_actor(this._mediaSection);
 
         this._mediaSection.actor.set_style('max-width:400px;padding-right:6px;padding-bottom:10px;');
 
@@ -49,7 +49,7 @@ var VolumeIndicator = new Lang.Class({
 
         this.menu.connect("open-state-changed", (menu, isOpen) => {
             if (isOpen) {
-                this._mediaSection.actor.show();
+                this._mediaSection.show();
             }
         });
 

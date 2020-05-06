@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-const { St } = imports.gi;
+const { Clutter, GLib, GObject, St } = imports.gi;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Config = imports.misc.config;
@@ -26,13 +26,16 @@ const _ = Gettext.gettext;
 const Extension = imports.misc.extensionUtils.getCurrentExtension();
 const CustomButton = Extension.imports.indicators.button.CustomButton;
 
+const Rfkill = imports.ui.status.rfkill;
+const Util = imports.misc.util;
+const Mainloop = imports.mainloop;
+
 var NetworkIndicator = new Lang.Class({
     Name: "NetworkIndicator",
     Extends: CustomButton,
 
     _init: function () {
         this.parent("NetworkIndicator");
-        this.menu.box.set_width(270);
         this.menu.actor.add_style_class_name("aggregate-menu");
 
         this._network = null;
@@ -44,6 +47,7 @@ var NetworkIndicator = new Lang.Class({
 
         this._location = Main.panel.statusArea.aggregateMenu._location;
         this._location.indicators.remove_actor(this._location._indicator);
+        this.box.add_child(this._location._indicator);
         this._location._indicator.hide();
 
         if (this._network) {
@@ -51,10 +55,12 @@ var NetworkIndicator = new Lang.Class({
             this._network.indicators.remove_actor(this._network._vpnIndicator);
             this.box.add_child(this._network._primaryIndicator);
             this.box.add_child(this._network._vpnIndicator);
+            this._network._primaryIndicator.hide();
             this._network._vpnIndicator.hide();            
         }
 
         this._rfkill.indicators.remove_actor(this._rfkill._indicator);
+        this.box.add_child(this._rfkill._indicator);
         this._rfkill._indicator.hide();
 
         this._arrowIcon = new St.Icon({
@@ -91,7 +97,7 @@ var NetworkIndicator = new Lang.Class({
         this._sync();
 
         Main.sessionMode.connect('updated', () => this._sync());
-
+        
     },
     _sync: function () {
         this._arrowIcon.hide();

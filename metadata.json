@@ -4,6 +4,7 @@
   "uuid": "panel-indicators@leavitals",
   "version": 1,
   "shell-version": [
+    "3.36",
     "3.34"
   ],
   "url": "https://github.com/lvitals/panel-indicators"
